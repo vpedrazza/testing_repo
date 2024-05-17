@@ -25,14 +25,12 @@ jobs:
 
       - name: Generate Report File
         run: |
-          echo "${{ steps.activity-report.outputs.template_issues_summary }}" > activity_report.txt
-          echo "${{ steps.activity-report.outputs.template_pull_requests_summary }}" >> activity_report.txt
+          echo "${{ steps.activity-report.outputs.template_commits_summary }}" >> activity_report.txt
           # Add more lines to append other report sections as needed
 
       - name: Debug Output Variables
         run: |
-          echo "Issues Summary: ${{ steps.activity-report.outputs.template_issues_summary }}"
-          echo "Pull Requests Summary: ${{ steps.activity-report.outputs.template_pull_requests_summary }}"
+          echo "Pull Requests Summary: ${{ steps.activity-report.outputs.template_commits_summary }}"
           # Add more debug lines for other output variables
 
       - name: Upload Report as Artifact
