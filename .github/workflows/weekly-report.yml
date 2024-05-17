@@ -1,10 +1,9 @@
 name: Weekly Report
+
 on:
   push:
     branches: [ main ]
-#
-# schedule:
-#   - cron: '0 18 * * 5' # At 06:00 on Sunday
+
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -12,3 +11,16 @@ jobs:
       - uses: wow-actions/activity-report@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          publish_issues: true
+          publish_top_liked_issues: 3
+          publish_top_hot_issues: 3
+          publish_pull_requests: true
+          publish_contributors: true
+          publish_stargazers: true
+          publish_commits: true
+          publish_releases: true
+          template_title: true
+          
+				 
+ 
+          
