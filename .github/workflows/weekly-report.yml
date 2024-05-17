@@ -17,9 +17,3 @@ jobs:
           publish_pull_requests: true
           publish_contributors: true
           publish_commits: true
-         
-          
-          
-				 
- 
-          
