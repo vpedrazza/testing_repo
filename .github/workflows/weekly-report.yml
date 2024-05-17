@@ -8,7 +8,8 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: wow-actions/activity-report@v1
+      - name: Activity Report
+        uses: wow-actions/activity-report@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           publish_issues: true
@@ -17,3 +18,9 @@ jobs:
           publish_pull_requests: true
           publish_contributors: true
           publish_commits: true
+        # Add other necessary parameters here
+
+      - name: Print Activity Report Results
+        run: |
+          echo "Activity Report Generated Successfully!"
+          # You can add more commands to print out specific information or results
