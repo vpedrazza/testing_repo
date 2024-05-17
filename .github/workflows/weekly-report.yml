@@ -18,13 +18,20 @@ jobs:
           publish_pull_requests: true
           publish_contributors: true
           publish_commits: true
-        # Add other necessary parameters here
 
-      - name: Save Report to File
-        run: echo "${{ steps.activity-report.outputs.report }}" > activity_report.txt
-
-      - name: Upload Report as Artifact
-        uses: actions/upload-artifact@v2
+      - name: Generate Activity Report
+        uses: wow-actions/activity-report@v1.1.2
         with:
-          name: activity-report
-          path: activity_report.txt
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Configuraciones adicionales
+          time_zone: "UTC"
+          report_days: 7
+          output_file: "activity-report.md"
+
+#      - name: Save Report to File
+#        run: echo "${{ steps.activity-report.outputs.report }}" > activity_report.txt#
+ #     - name: Upload Report as Artifact
+ #       uses: actions/upload-artifact@v2
+ #       with:
+ #         name: activity-report
+ #         path: activity_report.txt
