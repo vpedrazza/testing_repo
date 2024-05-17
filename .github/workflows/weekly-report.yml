@@ -3,52 +3,44 @@ name: Retrieve GitHub Info
 on:
   push:
     branches: [ main ]
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  retrieve-info:
+  retrieve_info:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
-      
+
       - name: Retrieve commits
-        id: commits
         run: |
-          # Retrieve commits using GitHub API
-          # Example command: curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/commits?since=$(date -d "last month" +%Y-%m-%dT00:00:00Z)"
+          # Write a script to retrieve commits using GitHub API
+          # Store the output in a file
+        # Example:
+        # curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/{owner}/{repo}/commits > commits.json
 
       - name: Retrieve pull requests
-        id: pull-requests
         run: |
-          # Retrieve pull requests using GitHub API
-          # Example command: curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/pulls?state=all&since=$(date -d "last month" +%Y-%m-%dT00:00:00Z)"
+          # Write a script to retrieve pull requests using GitHub API
+          # Store the output in a file
+        # Example:
+        # curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/{owner}/{repo}/pulls > pull_requests.json
 
       - name: Retrieve contributors
-        id: contributors
         run: |
-          # Retrieve contributors using GitHub API
-          # Example command: curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/stats/contributors"
-
-...
-      - name: Save commits as artifact
-        if: always()
+          # Write a script to retrieve contributors using GitHub API
+          # Store the output in a file
+        # Example:
+        # curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/{owner}/{repo}/contributors > contributors.json
+      - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: commits
-          path: commits.json # Path to the file containing commits data
+          name: github-info
+          path: |
+            commits.json
+            pull_requests.json
+            contributors.json
+      
 
-      - name: Save pull requests as artifact
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: pull-requests
-          path: pull_requests.json # Path to the file containing pull requests data
-
-      - name: Save contributors as artifact
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: contributors
-          path: contributors.json # Path to the file containing contributors data
-...
+# Add any other configurations, such as specifying branches or limiting the schedule.
