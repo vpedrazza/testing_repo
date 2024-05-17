@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Activity Report
+        id: activity-report
         uses: wow-actions/activity-report@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -17,21 +18,19 @@ jobs:
           publish_top_hot_issues: 3
           publish_pull_requests: true
           publish_contributors: true
+          publish_stargazers: true
           publish_commits: true
+          publish_releases: true
+        # Add other necessary parameters here
 
-      - name: Generate Activity Report
-        uses: wow-actions/activity-report@v1.1.2
+      - name: Generate Report File
+        run: |
+          echo "${{ steps.activity-report.outputs.template_issues_summary }}" > activity_report.txt
+          echo "${{ steps.activity-report.outputs.template_pull_requests_summary }}" >> activity_report.txt
+          # Add more lines to append other report sections as needed
+
+      - name: Upload Report as Artifact
+        uses: actions/upload-artifact@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Configuraciones adicionales
-          time_zone: "UTC"
-          report_days: 7
-          output_file: "activity-report.md"
-
-#      - name: Save Report to File
-#        run: echo "${{ steps.activity-report.outputs.report }}" > activity_report.txt#
- #     - name: Upload Report as Artifact
- #       uses: actions/upload-artifact@v2
- #       with:
- #         name: activity-report
- #         path: activity_report.txt
+          name: activity-report
+          path: activity_report.txt
