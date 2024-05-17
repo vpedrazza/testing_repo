@@ -20,6 +20,9 @@ jobs:
           publish_contributors: true
           publish_stargazers: true
           publish_commits: true
+          template_commits_title: true
+          template_commits_summary: true
+          template_commits_item: true
           publish_releases: true
         # Add other necessary parameters here
 
