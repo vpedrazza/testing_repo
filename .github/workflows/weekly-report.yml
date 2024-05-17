@@ -20,7 +20,11 @@ jobs:
           publish_commits: true
         # Add other necessary parameters here
 
-      - name: Print Activity Report Results
-        run: |
-          echo "Activity Report Generated Successfully!"
-          # You can add more commands to print out specific information or results
+      - name: Save Report to File
+        run: echo "${{ steps.activity-report.outputs.report }}" > activity_report.txt
+
+      - name: Upload Report as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: activity-report
+          path: activity_report.txt
