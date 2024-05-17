@@ -1,7 +1,10 @@
 name: Weekly Report
 on:
-  schedule:
-    - cron: '0 18 * * 5' # At 06:00 on Sunday
+  push:
+    branches: [ main ]
+#
+# schedule:
+#   - cron: '0 18 * * 5' # At 06:00 on Sunday
 jobs:
   run:
     runs-on: ubuntu-latest
